@@ -1,0 +1,67 @@
+## Ignore Visual Studio / Rider files
+.vs/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Ignore build outputs
+bin/
+obj/
+Debug/
+Release/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Bb][Ii][Nn]/
+[Oo][Bb][Jj]/
+
+## Ignore logs and temp files
+*.log
+*.tlog
+*.cache
+*.temp
+*.tmp
+*.dbmdl
+*.bak
+*.Backup
+*.swp
+*.swn
+*.swm
+*.swo
+
+## Ignore NuGet
+*.nupkg
+*.snupkg
+*.nuspec
+project.lock.json
+project.assets.json
+project.fragment.lock.json
+artifacts/
+packages/
+.nuget/
+
+## Ignore user secrets / settings
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.local.json
+*.userprefs
+*.csproj.user
+
+# Environment files
+.env
+.env.*
+
+
+## Ignore Rider project files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+## Ignore publish output
+publish/
+dist/
+out/
+wwwroot/
