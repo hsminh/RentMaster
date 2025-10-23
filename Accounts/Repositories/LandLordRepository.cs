@@ -1,13 +1,12 @@
-using Microsoft.EntityFrameworkCore;
 using RentMaster.Accounts.Models;
 using RentMaster.Core.Repositories;
 using RentMaster.Data;
 
 namespace RentMaster.Accounts.Repositories
 {
-    public class ConsumerRepository: BaseRepository<Consumer>
+    public class LandLordRepository: BaseRepository<LandLord>
     {
-        public ConsumerRepository(AppDbContext context) : base(context)
+        public LandLordRepository(AppDbContext context) : base(context)
         {
         }
     }

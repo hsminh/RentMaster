@@ -36,7 +36,7 @@ namespace RentMaster.Controllers
 
         // POST: api/consumer
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] consumer model)
+        public async Task<IActionResult> Create([FromBody] Consumer model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -50,7 +50,7 @@ namespace RentMaster.Controllers
 
         // PUT: api/consumer/{id}
         [HttpPut("{id:guid}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] consumer model)
+        public async Task<IActionResult> Update(Guid id, [FromBody] Consumer model)
         {
             if (id != model.Uid)
                 return BadRequest("Mismatched consumer ID");

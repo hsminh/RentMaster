@@ -11,6 +11,15 @@ namespace RentMaster.Accounts
             services.AddScoped<ConsumerRepository>();
             services.AddScoped<ConsumerService>();
             services.AddScoped<ConsumerValidator>(); 
+            
+            services.AddScoped<LandLordRepository>();
+            services.AddScoped<LandLordService>();
+            // services.AddScoped<LandLordValidator>(); 
+            
+            services.AddScoped<AdminRepository>();
+            services.AddScoped<AdminService>();
+            // services.AddScoped<LandLordValidator>(); 
+            
             return services;
         }
     }

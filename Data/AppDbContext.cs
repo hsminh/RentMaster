@@ -9,6 +9,8 @@ namespace RentMaster.Data
             : base(options)
         {
         }
-        public DbSet<consumer> Consumers { get; set; }
+        public DbSet<Consumer> Consumers { get; set; }
+        public DbSet<Admin> Admins { get; set; }
+        public DbSet<LandLord> LandLords { get; set; }
     }
 }

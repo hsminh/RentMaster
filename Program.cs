@@ -2,11 +2,17 @@ using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using RentMaster.Data;
 using RentMaster.Accounts;
+using RentMaster.Core.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Load environment variables from .env
 Env.Load();
+builder.Configuration["Jwt:Key"] = Environment.GetEnvironmentVariable("JWT_KEY");
+builder.Configuration["Jwt:Issuer"] = Environment.GetEnvironmentVariable("JWT_ISSUER");
+builder.Configuration["Jwt:Audience"] = Environment.GetEnvironmentVariable("JWT_AUDIENCE");
+
+
 
 // Build PostgreSQL connection string
 var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
@@ -26,6 +32,8 @@ builder.Services.AddControllers();
 
 // Register custom modules
 builder.Services.AddAccountModule();
+builder.Services.AddAuthModule(); 
+
 
 // Register OpenAPI/Swagger
 builder.Services.AddOpenApi();
