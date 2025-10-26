@@ -11,7 +11,7 @@ namespace RentMaster.Core.Auth.service;
 
 public class AuthService : IAuthService
 {
-    private readonly AppDbContext _context;
+        private readonly AppDbContext _context;
         private readonly IConfiguration _configuration;
 
         public AuthService(AppDbContext context, IConfiguration configuration)
@@ -29,7 +29,6 @@ public class AuthService : IAuthService
             if (user == null)
                 return null;
 
-            // ⚠️ TODO: Hash check
             if (!BCrypt.Net.BCrypt.Verify(password, user.Password))
                 return null;
 

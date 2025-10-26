@@ -1,4 +1,3 @@
-using RentMaster.Accounts.Models;
 using RentMaster.Accounts.Repositories;
 using RentMaster.Accounts.Validator;
 
@@ -7,39 +6,39 @@ namespace RentMaster.Accounts.Services
     public class AdminService
     {
         private readonly AdminRepository _repository;
-        // private readonly AdminValidator _validator;
+        private readonly AdminValidator _validator;
 
-        public AdminService(AdminRepository repository)
+        public AdminService(AdminRepository repository, AdminValidator validator)
         {
             _repository = repository;
-            // _validator = validator;
+            _validator = validator;
         }
-        public async Task<IEnumerable<Admin>> GetAllAsync()
+        public async Task<IEnumerable<Models.Admin>> GetAllAsync()
         {
             return await _repository.GetAllAsync();
         }
 
-        public async Task<Admin?> GetByIdAsync(Guid id)
+        public async Task<Models.Admin?> GetByIdAsync(Guid id)
         {
             return await _repository.FindByIdAsync(id);
         }
 
-        public async Task<Admin?> CreateAsync(Admin model)
+        public async Task<Models.Admin?> CreateAsync(Models.Admin model)
         {
-            // var isValid = await _validator.ValidateGmailAsync(model.Gmail);
-            // if (!isValid)
-            //     return null;
+            var isValid = await _validator.ValidateGmailAsync(model.Gmail);
+            if (!isValid)
+                return null;
             model.Password = BCrypt.Net.BCrypt.HashPassword(model.Password);
 
             return await _repository.CreateAsync(model);
         }
 
 
-        public async Task UpdateAsync(Guid id, Admin model)
+        public async Task UpdateAsync(Guid id, Models.Admin model)
         {
-            // var isValid = await _validator.ValidateGmailAsync(model.Gmail, model.Uid);
-            // if (!isValid)
-            //     throw new Exception("Gmail already exists for another user.");
+            var isValid = await _validator.ValidateGmailAsync(model.Gmail, model.Uid);
+            if (!isValid)
+                throw new Exception("Gmail already exists for another user.");
             if (id != model.Uid)
                 throw new ArgumentException("Mismatched Admin ID");
 

@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using RentMaster.Core.Auth.Interface;
 using RentMaster.Core.Auth.Models;
-using RentMaster.Core.Auth.service;
 using RentMaster.Core.Auth.Types;
 
 [ApiController]

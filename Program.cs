@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using RentMaster.Data;
 using RentMaster.Accounts;
 using RentMaster.Core.Auth;
+using RentMaster.Core.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +40,11 @@ builder.Services.AddAuthModule();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+// Middle Ware
+app.UseAuthentication();
+app.UseMiddleware<JwtMiddleware>();
+app.UseAuthorization();
 
 // Configure Middleware
 if (app.Environment.IsDevelopment())

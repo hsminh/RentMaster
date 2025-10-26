@@ -5,38 +5,38 @@ using RentMaster.Accounts.Services;
 namespace RentMaster.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
-    public class ConsumerController : ControllerBase
+    [Route("[controller]/api")]
+    public class AdminController : ControllerBase
     {
-        private readonly ConsumerService _service;
+        private readonly AdminService _service;
 
-        public ConsumerController(ConsumerService service)
+        public AdminController(AdminService service)
         {
             _service = service;
         }
 
-        // GET: api/consumer
+        // GET: api/admin
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var consumers = await _service.GetAllAsync();
-            return Ok(consumers);
+            var admins = await _service.GetAllAsync();
+            return Ok(admins);
         }
 
-        // GET: api/consumer/{id}
+        // GET: api/admin/{id}
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var consumer = await _service.GetByIdAsync(id);
-            if (consumer == null)
+            var admin = await _service.GetByIdAsync(id);
+            if (admin == null)
                 return NotFound();
 
-            return Ok(consumer);
+            return Ok(admin);
         }
 
-        // POST: api/consumer
+        // POST: api/admin
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Consumer model)
+        public async Task<IActionResult> Create([FromBody] Admin model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -48,18 +48,18 @@ namespace RentMaster.Controllers
             return CreatedAtAction(nameof(GetById), new { id = created.Uid }, created);
         }
 
-        // PUT: api/consumer/{id}
+        // PUT: api/admin/{id}
         [HttpPut("{id:guid}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] Consumer model)
+        public async Task<IActionResult> Update(Guid id, [FromBody] Admin model)
         {
             if (id != model.Uid)
-                return BadRequest("Mismatched consumer ID");
+                return BadRequest("Mismatched admin ID");
 
             await _service.UpdateAsync(id, model);
             return NoContent();
         }
 
-        // DELETE: api/consumer/{id}
+        // DELETE: api/admin/{id}
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {

@@ -24,7 +24,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Core\Backend\" />
+      <Folder Include="Accounts\Admin\" />
+      <Folder Include="Accounts\Auth\" />
     </ItemGroup>
 
 </Project>

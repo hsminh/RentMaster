@@ -18,7 +18,7 @@ namespace RentMaster.Accounts
             
             services.AddScoped<AdminRepository>();
             services.AddScoped<AdminService>();
-            // services.AddScoped<LandLordValidator>(); 
+            services.AddScoped<AdminValidator>(); 
             
             return services;
         }
