@@ -1,57 +1,38 @@
 using RentMaster.Accounts.Models;
 using RentMaster.Accounts.Repositories;
 using RentMaster.Accounts.Validator;
+using RentMaster.Core.Exceptions;
+using RentMaster.Core.Services;
 
 namespace RentMaster.Accounts.Services
 {
-    public class ConsumerService
+    public class ConsumerService : BaseService<Consumer>
     {
-        private readonly ConsumerRepository _repository;
         private readonly ConsumerValidator _validator;
 
         public ConsumerService(ConsumerRepository repository, ConsumerValidator validator)
+            : base(repository)
         {
-            _repository = repository;
             _validator = validator;
         }
-        public async Task<IEnumerable<Consumer>> GetAllAsync()
-        {
-            return await _repository.GetAllAsync();
-        }
 
-        public async Task<Consumer?> GetByIdAsync(Guid id)
+        public override async Task<Consumer> CreateAsync(Consumer model)
         {
-            return await _repository.FindByIdAsync(id);
-        }
-
-        public async Task<Consumer?> CreateAsync(Consumer model)
-        {
-            var isValid = await _validator.ValidateGmailAsync(model.Gmail);
-            if (!isValid)
-                return null;
+            var isEmailValid = await _validator.ValidateGmailAsync(model.Gmail);
+            if (!isEmailValid)
+                throw new ConflictException("The provided email address is already in use. Please use a different email or try signing in.");
+            
             model.Password = BCrypt.Net.BCrypt.HashPassword(model.Password);
-            return await _repository.CreateAsync(model);
+            return await base.CreateAsync(model);
         }
 
-
-        public async Task UpdateAsync(Guid id, Consumer model)
+        public override async Task UpdateAsync(Consumer model)
         {
-            var isValid = await _validator.ValidateGmailAsync(model.Gmail, model.Uid);
-            if (!isValid)
-                throw new Exception("Gmail already exists for another user.");
-            if (id != model.Uid)
-                throw new ArgumentException("Mismatched Consumer ID");
+            var isEmailValid = await _validator.ValidateGmailAsync(model.Gmail, model.Uid);
+            if (!isEmailValid)
+                throw new ConflictException("The provided email address is already in use by another account. Please use a different email address.");
 
-            await _repository.UpdateAsync(model);
-        }
-
-        public async Task DeleteAsync(Guid id)
-        {
-            var Consumer = await _repository.FindByIdAsync(id);
-            if (Consumer == null)
-                throw new KeyNotFoundException("Consumer not found");
-
-            await _repository.DeleteAsync(Consumer);
+            await base.UpdateAsync(model);
         }
     }
 }
