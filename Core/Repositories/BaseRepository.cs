@@ -25,7 +25,7 @@ public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
             return await _dbSet.FirstOrDefaultAsync(predicate);
         }
 
-        public virtual async Task<T?> FindByIdAsync(Guid id)
+        public virtual async Task<T?> FindByUidAsync(Guid id)
         {
             return await _dbSet.FindAsync(id);
         }
